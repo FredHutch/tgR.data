@@ -2,10 +2,16 @@ Package: tgR.data
 Type: Package
 Title: Data Management Support for Fred Hutch Translational Genomics
 Version: 0.0.0
-Author: Amy Pagurigan
-Maintainer: Amy Paguirigan<apaguiri@fredhutch.org>
+Author: Amy Paguirigan
+Maintainer: Amy Paguirigan <apaguiri@fredhutch.org>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
+Imports: 
+    REDCapR,
+    dplyr,
+    magrittr,
+    httr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.2
