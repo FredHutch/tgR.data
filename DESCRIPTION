@@ -4,8 +4,7 @@ Title: Data Management Support for Fred Hutch Translational Genomics
 Version: 0.0.0
 Author: Amy Paguirigan
 Maintainer: Amy Paguirigan <apaguiri@fredhutch.org>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: 
 Imports: 
     REDCapR,
     dplyr,
