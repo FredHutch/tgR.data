@@ -8,7 +8,6 @@
 #' @export
 get_dataset_annotations <- function(DAG = NULL, harmonizedOnly = FALSE, evenEmptyCols = FALSE) {
   check_credentials()
-
   tgrData <- suppressMessages(
     REDCapR::redcap_read_oneshot(
       Sys.getenv("REDURI"), Sys.getenv("TGR"),

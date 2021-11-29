@@ -10,7 +10,9 @@ Imports:
     dplyr,
     magrittr,
     httr,
-    uuid
+    uuid,
+    REDCapR,
+    paws.storage
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

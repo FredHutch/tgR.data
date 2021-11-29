@@ -5,7 +5,7 @@
 \title{Find user supplied data provenance information about files in S3}
 \usage{
 get_data_provenance(
-  bucket,
+  bucket = NULL,
   prefix = NULL,
   DAG = NULL,
   allowEmpty = F,
@@ -15,7 +15,7 @@ get_data_provenance(
 \arguments{
 \item{bucket}{(Required) Bucket to query}
 
-\item{prefix}{(Optional) Bucket prefix to query}
+\item{prefix}{(Required) Bucket prefix to query}
 
 \item{DAG}{(Optional) Data access group(s) to query if you are part of multiple DAG's}
 

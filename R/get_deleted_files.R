@@ -1,18 +1,17 @@
-#' Find user supplied data provenance information about files in S3
+#' Find files that used to be in S3 that are marked for deletion of their data provenance
 #'
 #' @param bucket (Required) Bucket to query
 #' @param prefix (Required) Bucket prefix to query
 #' @param DAG (Optional) Data access group(s) to query if you are part of multiple DAG's
-#' @param allowEmpty (Optional) Returns even empty columns if set to TRUE - use if you are interested in applying new annotations
 #' @param file_type (Optional) Specific file type(s) to query for, such as "bamCramSam", "variants" or "tabularMatrix"
 #'
-#' @return A data frame containing metadata about files in S3. Requesting data from a specific prefix can speed up the request.
+#' @return A data frame containing metadata about files marked for deletion of data provenance. Requesting data from a specific prefix can speed up the request.
 #' @export
 
-get_data_provenance <- function(bucket = NULL, prefix = NULL, DAG=NULL, allowEmpty = F, file_type = NULL) {
+get_deleted_files <- function(bucket = NULL, prefix = NULL, DAG=NULL, file_type = NULL) {
   check_credentials()
   if(any(sapply(list(bucket, prefix), is.null))) {stop("Please provide all required inputs.")}
-  logic = paste0("[bucket_name] = '", bucket,"'")
+  logic = paste0("[deleted_object] = '1' and [bucket_name] = '", bucket,"'")
   chatString = paste0("Retrieving data provenance for data in ", bucket,"...")
   if(is.null(prefix)==F){ logic = paste0(logic, " and [bucket_prefix] = '", prefix, "'")
                           chatString = paste0("Retrieving data provenance for data in ", bucket, ", and in prefix ", prefix, "...")}
@@ -28,6 +27,7 @@ get_data_provenance <- function(bucket = NULL, prefix = NULL, DAG=NULL, allowEmp
                    'fields[0]'='object_prefix',
                    'fields[1]'='bucket_name',
                    'fields[2]'='bucket_prefix',
+                   'fields[3]'='deleted_object',
                    'forms[0]'='data_provenance',
                    rawOrLabel='raw',
                    rawOrLabelHeaders='raw',
