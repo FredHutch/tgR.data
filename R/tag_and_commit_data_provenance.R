@@ -10,6 +10,7 @@
 #'
 tag_and_commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_prefix = NULL, DAG = NULL,
                                    data_provenance = NULL ) {
+  if(any(sapply(formals(), is.null))) {stop("Please provide all required inputs.")}
   check_credentials()
   uuid <- tag_file(bucket_name = bucket_name, object_prefix = object_prefix)
   commit_data_provenance(uuid = uuid, bucket_name = bucket_name, object_prefix = object_prefix,

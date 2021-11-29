@@ -12,11 +12,11 @@ get_deleted_files <- function(bucket = NULL, prefix = NULL, DAG=NULL, file_type 
   check_credentials()
   if(any(sapply(list(bucket, prefix), is.null))) {stop("Please provide all required inputs.")}
   logic = paste0("[deleted_object] = '1' and [bucket_name] = '", bucket,"'")
-  chatString = paste0("Retrieving data provenance for data in ", bucket,"...")
+  chatString = paste0("Retrieving data provenance for files marked for deletion in ", bucket,"...")
   if(is.null(prefix)==F){ logic = paste0(logic, " and [bucket_prefix] = '", prefix, "'")
-                          chatString = paste0("Retrieving data provenance for data in ", bucket, ", and in prefix ", prefix, "...")}
+                          chatString = paste0("Retrieving data provenance for files marked for deletion in ", bucket, ", and in prefix ", prefix, "...")}
   if(is.null(file_type)==F) { logic = paste0(logic, " and [file_type] = '", file_type,"'")
-                          chatString = paste0("Retrieving data provenance for data in ", bucket, ", in prefix ", prefix,
+                          chatString = paste0("Retrieving data provenance for files marked for deletion in ", bucket, ", in prefix ", prefix,
                                               ", and with a file type of ", file_type, "...")}
   formData <- list("token"=Sys.getenv("S3META"),
                    content='record',
@@ -42,7 +42,6 @@ get_deleted_files <- function(bucket = NULL, prefix = NULL, DAG=NULL, file_type 
   message(paste0("Retrieved ", nrow(results), " records."))
   if(nrow(results)>0) {
     results <- results %>% dplyr::select(-dplyr::contains("_complete"))
-    if (allowEmpty == F) {results <- results %>% dropWhen()}
     if (is.null(DAG)==F) {results <-  results[results$redcap_data_access_group %in% DAG,]}
   } else {results <- data.frame()}
   return(results)

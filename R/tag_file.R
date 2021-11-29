@@ -6,8 +6,8 @@
 #' @export
 #'
 tag_file <- function(bucket_name = NULL, object_prefix = NULL) {
-  check_credentials()
   if(any(sapply(formals(), is.null))) {stop("Please provide all required inputs.")}
+  check_credentials()
   message("Tagging file in S3.")
   newuuid <- uuid::UUIDgenerate()
   results <- paws.storage::s3()$put_object_tagging(
@@ -15,5 +15,6 @@ tag_file <- function(bucket_name = NULL, object_prefix = NULL) {
     Key = object_prefix,
     Tagging = list(
       TagSet = list(list(Key = "uuid",Value = newuuid))))
+  message(paste0("Tagged file with version id: ", results$VersionId))
   return(newuuid)
 }

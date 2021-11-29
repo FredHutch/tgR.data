@@ -1,7 +1,7 @@
 Package: tgR.data
 Type: Package
 Title: Data Management Support for Fred Hutch Translational Genomics
-Version: 0.0.0
+Version: 0.0.1
 Author: Amy Paguirigan
 Maintainer: Amy Paguirigan <apaguiri@fredhutch.org>
 Description: Supports the curation of scientific metadata associated with files stored

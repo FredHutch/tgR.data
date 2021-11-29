@@ -3,7 +3,6 @@
 #' @param uuid (Required) UUID of object to delete data provenance for
 #' @export
 
-
 delete_file_entries <- function(uuid = NULL) {
   suppressMessages(check_credentials())
   if(is.null(uuid)) {stop("Please provide uuid(s) for file entries to delete.")}
