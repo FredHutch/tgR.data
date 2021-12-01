@@ -4,7 +4,13 @@
 \alias{get_file_metadata}
 \title{Find file metadata about files in S3}
 \usage{
-get_file_metadata(bucket, prefix = NULL, DAG = NULL, file_type = NULL)
+get_file_metadata(
+  bucket,
+  prefix = NULL,
+  DAG = NULL,
+  file_type = NULL,
+  includeDeleted = FALSE
+)
 }
 \arguments{
 \item{bucket}{(Required) Bucket to query}
@@ -14,6 +20,8 @@ get_file_metadata(bucket, prefix = NULL, DAG = NULL, file_type = NULL)
 \item{DAG}{(Optional) Data access group(s) to query if you are part of multiple DAG's}
 
 \item{file_type}{(Optional) Specific file type(s) to query for, such as "bamCramSam", "variants" or "tabularMatrix"}
+
+\item{includeDeleted}{(Optional) Defaults to FALSE.}
 }
 \value{
 A data frame containing metadata about files in S3. Requesting data from a specific prefix can speed up the request.

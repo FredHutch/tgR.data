@@ -4,11 +4,13 @@
 #' @param prefix (Optional) Bucket prefix to query
 #' @param DAG (Optional) Data access group(s) to query if you are part of multiple DAG's
 #' @param file_type (Optional) Specific file type(s) to query for, such as "bamCramSam", "variants" or "tabularMatrix"
+#' @param includeDeleted (Optional) Defaults to FALSE.
 #'
 #' @return A data frame containing metadata about files in S3. Requesting data from a specific prefix can speed up the request.
 #' @export
-get_file_metadata <- function(bucket, prefix = NULL, DAG=NULL, file_type = NULL) {
+get_file_metadata <- function(bucket, prefix = NULL, DAG=NULL, file_type = NULL, includeDeleted = FALSE) {
   check_credentials()
+  if (includeDeleted == FALSE) { logic = "[deleted_object] = '0' and "}
   logic = paste0("[bucket_name] = '", bucket,"'")
   if(is.null(prefix)==F){ logic = paste0(logic, " and [bucket_prefix] = '", prefix, "'") }
   if(is.null(file_type)==F) { logic = paste0(logic, " and [file_type] = '", file_type,"'") }
