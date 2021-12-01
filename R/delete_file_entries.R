@@ -6,7 +6,6 @@
 delete_file_entries <- function(uuid = NULL) {
   suppressMessages(check_credentials())
   if(is.null(uuid)) {stop("Please provide uuid(s) for file entries to delete.")}
-  message("Deleting records cannot be undone. ")
   formData <- list("token"=Sys.getenv("S3META"),
                    content='record',
                    action='delete',
