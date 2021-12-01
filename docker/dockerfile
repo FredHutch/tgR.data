@@ -7,6 +7,6 @@ RUN apt-get install -y libssl-dev libxml2-dev libcurl4-openssl-dev
 # Install required packages
 RUN R -e "install.packages('remotes', dependencies = TRUE)"
 # Install from github
-RUN R -e "remotes::install_github('FredHutch/tgR.data@0.0.2', dependencies = TRUE)"
+RUN R -e "remotes::install_github('FredHutch/tgR.data@v0.0.2', dependencies = TRUE)"
 # Override the R CMD for workflow managers
 CMD ["/bin/bash"]
