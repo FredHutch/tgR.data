@@ -13,7 +13,7 @@ commit_data_provenance(
 )
 }
 \arguments{
-\item{uuid}{(Required without bucket_name, obect_prefix and DAG) Unique ID of the file in S3}
+\item{uuid}{(Required without bucket_name, object_prefix and DAG) Unique ID of the file in S3}
 
 \item{bucket_name}{(Required without uuid) Bucket where the file is stored}
 

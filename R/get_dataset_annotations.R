@@ -1,18 +1,26 @@
 #' Queries for dataset annotations
 #'
 #' @param harmonizedOnly (Optional) Whether you want only the annotations that are harmonized across all projects (TRUE) or a complete data set (FALSE, default).
+#' @param dataset_ids (Optional) If you want annotations for specific dataset_ids.
 #' @param evenEmptyCols (Optional) Whether you want even the empty fields in your final data frame (TRUE) or if you just want columns where there is at least one value in the resulting dataset (FALSE, default).
 #' @param DAG (Optional) A character vector containing the name(s) of the TGR data access group(s) for which to request data if you belong to multiple.
 #' @return Returns a data frame of annotations.
 #' @author Amy Paguirigan
 #' @export
-get_dataset_annotations <- function(DAG = NULL, harmonizedOnly = FALSE, evenEmptyCols = FALSE) {
+get_dataset_annotations <- function(harmonizedOnly = FALSE, dataset_ids = NULL, evenEmptyCols = FALSE, DAG = NULL) {
   check_credentials()
+  if (is.null(dataset_ids)==F) {
+    tgrData <- suppressMessages(
+      REDCapR::redcap_read_oneshot(
+        Sys.getenv("REDURI"), Sys.getenv("TGR"), records = paste0(dataset_ids, collapse = ","),
+        export_data_access_groups = T, guess_type = F)$data %>%
+        dplyr::select(-dplyr::ends_with("_complete")))
+  } else {
   tgrData <- suppressMessages(
     REDCapR::redcap_read_oneshot(
       Sys.getenv("REDURI"), Sys.getenv("TGR"),
       export_data_access_groups = T, guess_type = F)$data %>%
-      dplyr::select(-dplyr::ends_with("_complete")))
+      dplyr::select(-dplyr::ends_with("_complete"))) }
 
   if (harmonizedOnly == TRUE) {
     harmfields <- suppressMessages(

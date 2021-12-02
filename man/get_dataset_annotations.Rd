@@ -5,17 +5,20 @@
 \title{Queries for dataset annotations}
 \usage{
 get_dataset_annotations(
-  DAG = NULL,
   harmonizedOnly = FALSE,
-  evenEmptyCols = FALSE
+  dataset_ids = NULL,
+  evenEmptyCols = FALSE,
+  DAG = NULL
 )
 }
 \arguments{
-\item{DAG}{(Optional) A character vector containing the name(s) of the TGR data access group(s) for which to request data if you belong to multiple.}
-
 \item{harmonizedOnly}{(Optional) Whether you want only the annotations that are harmonized across all projects (TRUE) or a complete data set (FALSE, default).}
 
+\item{dataset_ids}{(Optional) If you want annotations for specific dataset_ids.}
+
 \item{evenEmptyCols}{(Optional) Whether you want even the empty fields in your final data frame (TRUE) or if you just want columns where there is at least one value in the resulting dataset (FALSE, default).}
+
+\item{DAG}{(Optional) A character vector containing the name(s) of the TGR data access group(s) for which to request data if you belong to multiple.}
 }
 \value{
 Returns a data frame of annotations.

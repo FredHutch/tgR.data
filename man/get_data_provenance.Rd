@@ -5,7 +5,8 @@
 \title{Find user supplied data provenance information about files in S3}
 \usage{
 get_data_provenance(
-  bucket = NULL,
+  bucket,
+  uuid = NULL,
   prefix = NULL,
   DAG = NULL,
   allowEmpty = F,
@@ -15,16 +16,18 @@ get_data_provenance(
 \arguments{
 \item{bucket}{(Required) Bucket to query}
 
-\item{prefix}{(Required) Bucket prefix to query}
+\item{uuid}{(Optional) UUID(s) to get data provenance for}
 
-\item{DAG}{(Optional) Data access group(s) to query if you are part of multiple DAG's}
+\item{prefix}{(Optional) Bucket prefix to query}
+
+\item{DAG}{(Optional) Data access group to query if you are part of multiple DAGs}
 
 \item{allowEmpty}{(Optional) Returns even empty columns if set to TRUE - use if you are interested in applying new annotations}
 
 \item{file_type}{(Optional) Specific file type(s) to query for, such as "bamCramSam", "variants" or "tabularMatrix"}
 }
 \value{
-A data frame containing metadata about files in S3. Requesting data from a specific prefix can speed up the request.
+A data frame containing metadata about files in S3. Requesting data from a specific prefix or other options can speed up the request.
 }
 \description{
 Find user supplied data provenance information about files in S3

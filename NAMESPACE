@@ -3,6 +3,7 @@
 export("%>%")
 export(check_credentials)
 export(commit_data_provenance)
+export(commit_data_provenance_batch)
 export(delete_file_entries)
 export(dropWhen)
 export(get_all_deleted_files)

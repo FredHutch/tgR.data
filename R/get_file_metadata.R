@@ -10,10 +10,17 @@
 #' @export
 get_file_metadata <- function(bucket, prefix = NULL, DAG=NULL, file_type = NULL, includeDeleted = FALSE) {
   check_credentials()
-  if (includeDeleted == FALSE) { logic = "[deleted_object] = '0' and "}
+  chatString <- "Retrieving "
+  if (includeDeleted == FALSE) {
+    logic = "[deleted_object] = '0' and ";
+    chatString <- paste0(chatString, "data about files in bucket ")
+    } else {chatString <- paste0(chatString, "data about all files (even deleted) in bucket ")}
   logic = paste0("[bucket_name] = '", bucket,"'")
-  if(is.null(prefix)==F){ logic = paste0(logic, " and [bucket_prefix] = '", prefix, "'") }
-  if(is.null(file_type)==F) { logic = paste0(logic, " and [file_type] = '", file_type,"'") }
+  chatString <- paste0(chatString, bucket)
+  if(is.null(prefix)==F){ logic = paste0(logic, " and [bucket_prefix] = '", prefix, "'");
+  chatString <- paste0(chatString, " in prefix ", prefix)}
+  if(is.null(file_type)==F) { logic = paste0(logic, " and [file_type] = '", file_type,"'");
+  chatString <- paste0(chatString, " of file type ", file_type)}
   formData <- list("token"=Sys.getenv("S3META"),
                    content='record',
                    action='export',
@@ -31,7 +38,7 @@ get_file_metadata <- function(bucket, prefix = NULL, DAG=NULL, file_type = NULL,
                    exportDataAccessGroups='true',
                    returnFormat='csv',
                    filterLogic=logic)
-  message(paste0("Retrieving data from ", bucket, " in prefix ", prefix, "..."))
+  message(chatString)
   results <- suppressMessages(httr::content(
     httr::POST(url = Sys.getenv("REDURI"),
                body = formData, encode = "form", show_col_types = FALSE)))
