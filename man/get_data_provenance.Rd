@@ -16,7 +16,7 @@ get_data_provenance(
 \arguments{
 \item{bucket}{(Required) Bucket to query}
 
-\item{uuid}{(Optional) UUID(s) to get data provenance for}
+\item{uuid}{(Optional) uuid(s) to get data provenance for}
 
 \item{prefix}{(Optional) Bucket prefix to query}
 

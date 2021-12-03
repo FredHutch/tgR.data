@@ -34,16 +34,12 @@ commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_prefi
                             paste(data_provenance, collapse = '\",\"'), sep = '\",\"'), '\"'), sep = '\"\n\"')
 
   formData <- list(token=Sys.getenv("S3META"),
-                   content='record',
-                   format='csv',
-                   type='flat',
-                   csvDelimiter=',',
-                   data=csv,
-                   returnFormat = 'csv',
+                   content='record', format='csv', type='flat',
+                   csvDelimiter=',', data=csv, returnFormat = 'csv',
                    returnContent= "ids")
   results <- httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form")
   suppressMessages(idDF<-httr::content(results))
-  if(results$status_code == "200") {message(paste0("Commit successful for id(s): ", paste(idDF$id, collapse = ", ")))} else
+  if(results$status_code == "200") {message(paste0("Commit successful for uuid(s): ", paste(idDF$id, collapse = ", ")))} else
     {stop(paste0("Commit unsuccessful. Status code: ", results$status_code))}
 }
 
@@ -53,10 +49,11 @@ commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_prefi
 #' Commits a batch of data provenance to REDCap about files in S3
 #'
 #' @param df Data frame of uuids and data provenance to commit for a batch of files
+#' @param overwriteWithBlanks Default is FALSE and will not overwrite data if there are NAs or blanks in the data frame, however TRUE will overwrite.
 #' @details Note:  NAs or blanks in the data frame will not overwrite existing data in this version.
 #' @export
 #'
-commit_data_provenance_batch <- function(df = NULL) {
+commit_data_provenance_batch <- function(df = NULL, overwriteWithBlanks = FALSE) {
   check_credentials()
   if(is.null(df)==T) {stop("Please provide a data frame containing the data provenance for this batch.")}
   if(!"uuid" %in% colnames(df)){ stop("The data frame must include a column of valid uuids.")}
@@ -71,20 +68,21 @@ commit_data_provenance_batch <- function(df = NULL) {
   if(length(wrongfields)>0) {stop(paste0("Data provenance has these invalid names: ", paste(wrongfields, collapse = ", "), "."))}
 
   # Prep the data frame for writing as a csv
-  con     <-  base::textConnection(object  = "thiscsv", open    = "w", local   = TRUE)
+  con <-  base::textConnection(object  = "thiscsv", open = "w", local= TRUE)
   utils::write.csv(df, con, row.names = FALSE, na = "")
   close(con)
-  csv     <- paste(thiscsv, collapse = "\n")
+  csv <- paste(thiscsv, collapse = "\n")
 
   message("Committing data provenance. ")
-  formData <- list(token=Sys.getenv("S3META"),
-                   content='record',
-                   format='csv',
-                   type='flat',
-                   csvDelimiter=',',
-                   data=csv,
-                   returnFormat = 'csv',
-                   returnContent= "ids")
+  if (overwriteWithBlanks == F) {
+  formData <- list(token=Sys.getenv("S3META"), content='record',
+                   format='csv', type='flat', csvDelimiter=',',
+                   data=csv, returnFormat = 'csv', returnContent= "ids")}
+  if (overwriteWithBlanks == T) {
+    formData <- list(token=Sys.getenv("S3META"), content='record',
+                     format='csv', type='flat', csvDelimiter=',',
+                     data=csv, returnFormat = 'csv', returnContent= "ids",
+                     overwriteBehavior = 'overwrite')}
   results <- httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form")
   suppressMessages(idDF<-httr::content(results))
   if(results$status_code == "200") {message(paste0("Commit successful for id(s): ", paste(idDF$id, collapse = ", ")))} else

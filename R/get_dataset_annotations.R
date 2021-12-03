@@ -9,26 +9,24 @@
 #' @export
 get_dataset_annotations <- function(harmonizedOnly = FALSE, dataset_ids = NULL, evenEmptyCols = FALSE, DAG = NULL) {
   check_credentials()
-  if (is.null(dataset_ids)==F) {
-    tgrData <- suppressMessages(
-      REDCapR::redcap_read_oneshot(
-        Sys.getenv("REDURI"), Sys.getenv("TGR"), records = paste0(dataset_ids, collapse = ","),
-        export_data_access_groups = T, guess_type = F)$data %>%
-        dplyr::select(-dplyr::ends_with("_complete")))
-  } else {
-  tgrData <- suppressMessages(
-    REDCapR::redcap_read_oneshot(
-      Sys.getenv("REDURI"), Sys.getenv("TGR"),
-      export_data_access_groups = T, guess_type = F)$data %>%
-      dplyr::select(-dplyr::ends_with("_complete"))) }
+  formData <- list("token"=Sys.getenv("TGR"),
+                   content='record', action='export',
+                   format='csv', type='flat',
+                   exportDataAccessGroups='true',
+                   returnFormat='csv')
+  if (is.null(dataset_ids)==F) {formData <- c(formData, records=paste0(dataset_ids, collapse = ","))}
+  results <- httr::content(a<- httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form"),
+                             guess_max = 5000, show_col_types = FALSE) %>% dplyr::select(-dplyr::ends_with("_complete"))
 
   if (harmonizedOnly == TRUE) {
-    harmfields <- suppressMessages(
-      REDCapR::redcap_metadata_read(Sys.getenv("REDURI"), Sys.getenv("TGR"))$data)
-    Keep <- harmfields %>% dplyr::filter(grepl("tgr_*", form_name)==T) %>% dplyr::select(field_name)
-    tgrData <- tgrData %>% dplyr::select(dplyr::one_of("molecular_id", "redcap_data_access_group", Keep$field_name))
+    formData <- list("token"=Sys.getenv("TGR"),
+                     content='metadata',
+                     format='csv')
+    meta <- suppressMessages(httr::content(httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form")))
+    Keep <- meta %>% dplyr::filter(grepl("tgr_*", form_name)==T) %>% dplyr::select(field_name)
+    tgrData <- results %>% dplyr::select(dplyr::one_of("molecular_id", "redcap_data_access_group", Keep$field_name))
   }
-  tgrData[tgrData == ""] <- NA
+
   if (is.null(DAG) == T ) {message("Returning all data you have access to.")
   } else {
     if (DAG %in% tgrData$redcap_data_access_group){

@@ -62,19 +62,13 @@ get_all_deleted_files <- function() {
                    action='export',
                    format='csv',
                    type='flat',
-                   csvDelimiter=',',
                    'fields[0]'='uuid',
                    'fields[1]'='object_prefix',
                    'fields[2]'='bucket_name',
                    'fields[3]'='bucket_prefix',
                    'fields[4]'='deleted_object',
                    'forms[0]'='data_provenance',
-                   rawOrLabel='raw',
-                   rawOrLabelHeaders='raw',
-                   exportCheckboxLabel='false',
-                   exportSurveyFields='false',
                    exportDataAccessGroups='true',
-                   returnFormat='csv',
                    filterLogic="[deleted_object] = '1'"
   )
   results <- suppressMessages(httr::content(httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form")))

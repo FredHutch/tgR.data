@@ -31,12 +31,7 @@ get_file_metadata <- function(bucket, prefix = NULL, DAG=NULL, file_type = NULL,
                    'fields[1]'='bucket_name',
                    'fields[2]'='bucket_prefix',
                    'forms[0]'='s3_metadata',
-                   rawOrLabel='raw',
-                   rawOrLabelHeaders='raw',
-                   exportCheckboxLabel='false',
-                   exportSurveyFields='false',
                    exportDataAccessGroups='true',
-                   returnFormat='csv',
                    filterLogic=logic)
   message(chatString)
   results <- suppressMessages(httr::content(

@@ -4,10 +4,12 @@
 \alias{commit_data_provenance_batch}
 \title{Commits a batch of data provenance to REDCap about files in S3}
 \usage{
-commit_data_provenance_batch(df = NULL)
+commit_data_provenance_batch(df = NULL, overwriteWithBlanks = FALSE)
 }
 \arguments{
 \item{df}{Data frame of uuids and data provenance to commit for a batch of files}
+
+\item{overwriteWithBlanks}{Default is FALSE and will not overwrite data if there are NAs or blanks in the data frame, however TRUE will overwrite.}
 }
 \description{
 Commits a batch of data provenance to REDCap about files in S3
