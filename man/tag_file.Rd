@@ -4,12 +4,12 @@
 \alias{tag_file}
 \title{Tags new files in S3 with a unique id}
 \usage{
-tag_file(bucket_name = NULL, object_prefix = NULL)
+tag_file(bucket_name = NULL, object_key = NULL)
 }
 \arguments{
 \item{bucket_name}{(Required) Bucket where the file is stored}
 
-\item{object_prefix}{(Required) Prefix of the file in S3 (such as tg/projectA/file.csv)}
+\item{object_key}{(Required) Key of the file in S3 (such as tg/projectA/file.csv)}
 }
 \value{
 Returns uuid of the object tagged.

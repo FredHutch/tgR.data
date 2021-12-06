@@ -7,17 +7,17 @@
 commit_data_provenance(
   uuid = NULL,
   bucket_name = NULL,
-  object_prefix = NULL,
+  object_key = NULL,
   DAG = NULL,
   data_provenance = NULL
 )
 }
 \arguments{
-\item{uuid}{(Required without bucket_name, object_prefix and DAG) Unique ID of the file in S3}
+\item{uuid}{(Required without bucket_name, object_key and DAG) Unique ID of the file in S3}
 
 \item{bucket_name}{(Required without uuid) Bucket where the file is stored}
 
-\item{object_prefix}{(Required without uuid) Prefix of the file in S3 (such as tg/projectA/file.csv)}
+\item{object_key}{(Required without uuid) Key of the file in S3 (such as tg/projectA/file.csv)}
 
 \item{DAG}{(Required without uuid) Data access group to assign this file to}
 

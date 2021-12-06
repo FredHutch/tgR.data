@@ -5,20 +5,20 @@
 \title{Find user supplied data provenance information about files in S3}
 \usage{
 get_data_provenance(
-  bucket,
-  uuid = NULL,
+  bucket = NULL,
   prefix = NULL,
+  uuid = NULL,
   DAG = NULL,
   allowEmpty = F,
   file_type = NULL
 )
 }
 \arguments{
-\item{bucket}{(Required) Bucket to query}
+\item{bucket}{Bucket(s) to query}
 
-\item{uuid}{(Optional) uuid(s) to get data provenance for}
+\item{prefix}{Bucket prefix(es) to query}
 
-\item{prefix}{(Optional) Bucket prefix to query}
+\item{uuid}{uuid(s) to get data provenance for}
 
 \item{DAG}{(Optional) Data access group to query if you are part of multiple DAGs}
 
@@ -31,4 +31,7 @@ A data frame containing metadata about files in S3. Requesting data from a speci
 }
 \description{
 Find user supplied data provenance information about files in S3
+}
+\details{
+At least one bucket and/or prefix is required.
 }

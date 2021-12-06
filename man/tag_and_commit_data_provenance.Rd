@@ -7,7 +7,7 @@
 tag_and_commit_data_provenance(
   uuid = NULL,
   bucket_name = NULL,
-  object_prefix = NULL,
+  object_key = NULL,
   DAG = NULL,
   data_provenance = NULL
 )
@@ -17,7 +17,7 @@ tag_and_commit_data_provenance(
 
 \item{bucket_name}{(Required) Bucket where the file is stored}
 
-\item{object_prefix}{(Required) Prefix of the file in S3 (such as tg/projectA/file.csv)}
+\item{object_key}{(Required) Key of the file in S3 (such as tg/projectA/file.csv)}
 
 \item{DAG}{(Required) Data access group to assign this file to}
 

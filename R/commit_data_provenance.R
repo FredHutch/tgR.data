@@ -1,14 +1,14 @@
 #' Commits data provenance to REDCap about files in S3 with a unique id
 #'
-#' @param uuid (Required without bucket_name, object_prefix and DAG) Unique ID of the file in S3
+#' @param uuid (Required without bucket_name, object_key and DAG) Unique ID of the file in S3
 #' @param bucket_name (Required without uuid) Bucket where the file is stored
-#' @param object_prefix (Required without uuid) Prefix of the file in S3 (such as tg/projectA/file.csv)
+#' @param object_key (Required without uuid) Key of the file in S3 (such as tg/projectA/file.csv)
 #' @param DAG (Required without uuid) Data access group to assign this file to
 #' @param data_provenance (Required) A named list of character objects that contains the data provenance to commit to REDCap about this file.
 #'
 #' @export
 #'
-commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_prefix = NULL, DAG = NULL,
+commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_key = NULL, DAG = NULL,
                                    data_provenance = NULL ) {
   check_credentials()
   if(is.null(uuid)==T) {
@@ -28,9 +28,9 @@ commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_prefi
   if(length(wrongfields)>0) {stop(paste0("Data provenance list has these invalid names: ", paste(wrongfields, collapse = ", "), "."))}
 
   message("Committing data provenance. ")
-  csv <- paste(paste0('\"', paste("uuid","bucket_name", "object_prefix","redcap_data_access_group",
+  csv <- paste(paste0('\"', paste("uuid","bucket_name", "object_key","redcap_data_access_group",
                      paste(names(data_provenance), collapse = '\",\"'), sep = '\",\"')),
-               paste0(paste(uuid, bucket_name, object_prefix, DAG,
+               paste0(paste(uuid, bucket_name, object_key, DAG,
                             paste(data_provenance, collapse = '\",\"'), sep = '\",\"'), '\"'), sep = '\"\n\"')
 
   formData <- list(token=Sys.getenv("S3META"),
