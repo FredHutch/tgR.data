@@ -4,7 +4,7 @@
 #' @export
 
 delete_file_entries <- function(uuid = NULL) {
-  suppressMessages(check_credentials())
+  suppressMessages(check_s3meta_credentials())
   if(is.null(uuid)) {stop("Please provide uuid(s) for file entries to delete.")}
   formData <- list("token"=Sys.getenv("S3META"),
                    content='record',

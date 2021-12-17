@@ -4,7 +4,7 @@
 #' @export
 
 mark_file_for_deletion <- function(uuid = NULL) {
-  suppressMessages(check_credentials())
+  suppressMessages(check_s3meta_credentials())
   if(is.null(uuid)) {stop("Please provide uuid(s) for file entries to delete.")}
   csv <- paste(paste0('\"', paste("uuid","deleted_object", sep = '\",\"')),
                paste0(paste(uuid, 1, sep = '\",\"'), '\"'), sep = '\"\n\"')

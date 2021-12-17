@@ -9,7 +9,7 @@
 #' @export
 
 get_deleted_files <- function(bucket = NULL, prefix = NULL, DAG=NULL, file_type = NULL) {
-  check_credentials()
+  check_s3meta_credentials()
   if(any(sapply(list(bucket, prefix), is.null))) {stop("Please provide all required inputs.")}
   logic = paste0("[deleted_object] = '1' and [bucket_name] = '", bucket,"'")
   chatString = paste0("Retrieving data provenance for files marked for deletion in ", bucket,"...")

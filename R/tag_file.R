@@ -7,9 +7,15 @@
 #'
 tag_file <- function(bucket_name = NULL, object_key = NULL) {
   if(any(sapply(formals(), is.null))) {stop("Please provide all required inputs.")}
-  check_credentials()
+  check_aws_credentials()
+  check_s3meta_credentials()
   message("Tagging file in S3.")
-  newuuid <- uuid::UUIDgenerate()
+
+  invalid <- ""
+  while (is.na(invalid)==F) {
+    newuuid <- uuid::UUIDgenerate()
+    invalid <- validate_uuid(newuuid)
+  }
   results <- paws.storage::s3()$put_object_tagging(
     Bucket = bucket_name,
     Key = object_key,

@@ -8,7 +8,7 @@
 #' @author Amy Paguirigan
 #' @export
 get_dataset_annotations <- function(harmonizedOnly = FALSE, dataset_ids = NULL, evenEmptyCols = FALSE, DAG = NULL) {
-  check_credentials()
+  check_annot_credentials()
   formData <- list("token"=Sys.getenv("TGR"),
                    content='record', action='export',
                    format='csv', type='flat',

@@ -7,7 +7,7 @@
 #'
 validate_uuid <- function(uuid = NULL) {
   if(is.null(uuid)) {stop("Please provide at least one uuid.")}
-  suppressMessages(check_credentials())
+  suppressMessages(check_s3meta_credentials())
   message("Checking for existing record(s) with the uuid(s) provided.")
   logic <- paste0("[uuid] = '", paste(uuid, collapse = "' OR [uuid] = '"), "'")
   formData <- list("token"=Sys.getenv("S3META"),

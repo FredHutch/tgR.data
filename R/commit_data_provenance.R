@@ -10,7 +10,7 @@
 #'
 commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_key = NULL, DAG = NULL,
                                    data_provenance = NULL ) {
-  check_credentials()
+  check_s3meta_credentials()
   if(is.null(uuid)==T) {
     if(any(sapply(formals(), is.null))) {stop("Please provide all required inputs.")}}
 

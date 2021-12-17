@@ -14,7 +14,7 @@
 get_data_provenance <- function(bucket=NULL, prefix=NULL, uuid = NULL,
                                 DAG=NULL, allowEmpty = F, file_type = NULL) {
 
-  check_credentials()
+  check_s3meta_credentials()
     # if they didn't provide uuids, then they have to provide at least some bucket names or some prefixes and then if they provide file_types, filter for that too
   if(is.null(bucket) & is.null(prefix)) {stop("Please provide at least one bucket or bucket prefix name.")}
     if(is.null(bucket) == F & is.null(prefix) == T) {
