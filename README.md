@@ -16,10 +16,10 @@ require(remotes)
 remotes::install_github('FredHutch/tgR.data')
 ```
 
-Install a specific release version (in this case 0.0.1) by:
+Install a specific release version (in this case v0.0.3 ) by:
 ```r
 require(remotes)
-remotes::install_github('FredHutch/tgR.data@0.0.1')
+remotes::install_github('FredHutch/tgR.data@v0.0.3')
 ```
 
 ## Credentials
