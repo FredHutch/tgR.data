@@ -15,7 +15,7 @@ get_dataset_annotations <- function(harmonizedOnly = FALSE, dataset_ids = NULL, 
                    exportDataAccessGroups='true',
                    returnFormat='csv')
   if (is.null(dataset_ids)==F) {formData <- c(formData, records=paste0(dataset_ids, collapse = ","))}
-  results <- httr::content(a<- httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form"),
+  results <- httr::content(httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form"),
                              guess_max = 5000, show_col_types = FALSE) %>% dplyr::select(-dplyr::ends_with("_complete"))
 
   if (harmonizedOnly == TRUE) {
@@ -24,22 +24,22 @@ get_dataset_annotations <- function(harmonizedOnly = FALSE, dataset_ids = NULL, 
                      format='csv')
     meta <- suppressMessages(httr::content(httr::POST(url = Sys.getenv("REDURI"), body = formData, encode = "form")))
     Keep <- meta %>% dplyr::filter(grepl("tgr_*", form_name)==T) %>% dplyr::select(field_name)
-    tgrData <- results %>% dplyr::select(dplyr::one_of("molecular_id", "redcap_data_access_group", Keep$field_name))
+    results <- results %>% dplyr::select(dplyr::one_of("molecular_id", "redcap_data_access_group", Keep$field_name))
   }
 
   if (is.null(DAG) == T ) {message("Returning all data you have access to.")
   } else {
-    if (DAG %in% tgrData$redcap_data_access_group){
-        tgrData <- tgrData %>% dplyr::filter(redcap_data_access_group %in% DAG)
-        message(paste0("DAGs returned: ", paste(unique(tgrData$redcap_data_access_group), collapse = ", ")))
+    if (DAG %in% results$redcap_data_access_group){
+        results <- results %>% dplyr::filter(redcap_data_access_group %in% DAG)
+        message(paste0("DAGs returned: ", paste(unique(results$redcap_data_access_group), collapse = ", ")))
       } else {stop("Invalid DAG or you do not have permissions to that DAG.")}
     }
   if (evenEmptyCols == F) {
-    tgrData <- tgrData %>%
+    results <- results %>%
       Filter(function(x)!all(is.na(x)), .) %>%
       Filter(function(x)!all(x==0), .)
   }
-  return(tgrData)
+  return(results)
 }
 
 

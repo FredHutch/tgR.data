@@ -9,7 +9,7 @@
 #' @return A data frame containing metadata about files in S3. Requesting data from a specific prefix can speed up the request.
 #' @export
 get_file_metadata <- function(bucket, prefix = NULL, DAG=NULL, file_type = NULL, includeDeleted = FALSE) {
-  check_credentials()
+  check_s3meta_credentials()
   chatString <- "Retrieving "
   if (includeDeleted == FALSE) {
     logic = "[deleted_object] = '0' and ";
