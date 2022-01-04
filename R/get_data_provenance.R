@@ -2,7 +2,7 @@
 #'
 #' @param bucket Bucket(s) to query
 #' @param prefix Bucket prefix(es) to query
-#' @param uuid uuid(s) to get data provenance for
+#' @param uuid (Optional) uuid(s) to get data provenance for
 #' @param DAG (Optional) Data access group to query if you are part of multiple DAGs
 #' @param allowEmpty (Optional) Returns even empty columns if set to TRUE - use if you are interested in applying new annotations
 #' @param file_type (Optional) Specific file type(s) to query for, such as "bamCramSam", "variants" or "tabularMatrix"

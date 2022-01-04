@@ -18,7 +18,7 @@ get_data_provenance(
 
 \item{prefix}{Bucket prefix(es) to query}
 
-\item{uuid}{uuid(s) to get data provenance for}
+\item{uuid}{(Optional) uuid(s) to get data provenance for}
 
 \item{DAG}{(Optional) Data access group to query if you are part of multiple DAGs}
 
