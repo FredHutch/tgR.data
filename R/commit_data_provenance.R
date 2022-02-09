@@ -54,7 +54,7 @@ commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_key =
 #' @export
 #'
 commit_data_provenance_batch <- function(df = NULL, overwriteWithBlanks = FALSE) {
-  check_credentials()
+  check_s3meta_credentials()
   if(is.null(df)==T) {stop("Please provide a data frame containing the data provenance for this batch.")}
   if(!"uuid" %in% colnames(df)){ stop("The data frame must include a column of valid uuids.")}
 
