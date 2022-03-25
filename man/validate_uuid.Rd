@@ -18,3 +18,4 @@ Checks to ensure a uuid is not already used
 \details{
 Note: Only works for admin users.
 }
+\keyword{internal}

@@ -2,25 +2,25 @@
 #'
 #'
 #' Checks for correct AWS credentials.
-#' @export
+#' @noRd
 check_aws_credentials <- function() {
   if ("" %in% Sys.getenv(c( "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"))) {
     stop("You have missing AWS credentials.")} else message("Credentials set successfully.")
 }
 #' Checks for correct AWS S3 metadata credentials.
-#' @export
+#' @noRd
 check_s3meta_credentials <- function() {
   if ("" %in% Sys.getenv(c("REDURI", "S3META"))) {
     stop("You have missing TGR S3 Metadata credentials.")} else message("Credentials set successfully.")
 }
 #' Checks for correct dataset annotation credentials.
-#' @export
+#' @noRd
 check_annot_credentials <- function() {
   if ("" %in% Sys.getenv(c("REDURI","TGR"))) {
     stop("You have missing TGR Dataset Annotation credentials.")} else message("Credentials set successfully.")
 }
 #' Checks for all correct credentials.
-#' @export
+#' @noRd
 check_all_credentials <- function() {
   if ("" %in% Sys.getenv(c("REDURI","TGR", "S3META",  "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"))) {
     stop("You have missing credentials.")} else message("Credentials set successfully.")

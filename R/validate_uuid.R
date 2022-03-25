@@ -3,7 +3,7 @@
 #' @param uuid (Required) uuid you'd like to check
 #' @return Returns NA if all uuids are valid, and an array of invalid uuids if any are invalid
 #' @details Note: Only works for admin users.
-#' @export
+#' @noRd
 #'
 validate_uuid <- function(uuid = NULL) {
   if(is.null(uuid)) {stop("Please provide at least one uuid.")}

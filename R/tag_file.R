@@ -3,7 +3,7 @@
 #' @param bucket_name (Required) Bucket where the file is stored
 #' @param object_key (Required) Key of the file in S3 (such as tg/projectA/file.csv)
 #' @return Returns uuid of the object tagged.
-#' @export
+#' @noRd
 #'
 tag_file <- function(bucket_name = NULL, object_key = NULL) {
   if(any(sapply(formals(), is.null))) {stop("Please provide all required inputs.")}

@@ -3,7 +3,7 @@
 #' @param dataset_id (Required) dataset_id(s) you'd like to check
 #' @return Returns NA if all dataset_ids are valid, and an array of invalid dataset_ids if any are invalid
 #' @details Unfortunately this currently only works for an admin user.
-#' @export
+#' @noRd
 #'
 validate_dataset_id <- function(dataset_id = NULL) {
   if(is.null(dataset_id)) {stop("Please provide at least one dataset_id.")}

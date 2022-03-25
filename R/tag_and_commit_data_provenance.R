@@ -6,7 +6,9 @@
 #' @param DAG (Required) Data access group to assign this file to
 #' @param data_provenance (Required) A named list of character objects that contains the data provenance to commit to REDCap about this file.
 #'
+#' @keywords internal
 #' @export
+#'
 #'
 tag_and_commit_data_provenance <- function(uuid = NULL, bucket_name = NULL, object_key = NULL, DAG = NULL,
                                    data_provenance = NULL ) {

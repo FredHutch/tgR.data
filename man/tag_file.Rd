@@ -17,3 +17,4 @@ Returns uuid of the object tagged.
 \description{
 Tags new files in S3 with a unique id
 }
+\keyword{internal}
