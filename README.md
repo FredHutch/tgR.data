@@ -16,10 +16,10 @@ require(remotes)
 remotes::install_github('FredHutch/tgR.data')
 ```
 
-Install a specific release version (in this case v0.0.3 ) by:
+Install a specific release version (in this case v0.0.4 ) by:
 ```r
 require(remotes)
-remotes::install_github('FredHutch/tgR.data@v0.0.3')
+remotes::install_github('FredHutch/tgR.data@v0.0.4')
 ```
 
 ## Credentials
@@ -31,7 +31,7 @@ If you have the permissions to tag files in S3 with uuid's from the Repository, 
 
 
 ## Docker
-I have provided a dockerfile and a built container at `vortexing/r_tgr.data:v0.0.3` (or whatever is currently specified in the dockerfile in this repo) for use in workflows. 
+I have provided a dockerfile and a built container at `vortexing/r_tgr.data:v0.0.4` (or whatever is currently specified in the dockerfile in this repo) for use in workflows. 
 
 ## WDL
 There is a WDL subworkflow in this repo that can be used in the context of another WDL workflow to directly copy the desired outputs from a scientific workflow to the appropriate S3 archiving location, tag the file with a TGR uuid and then commit the workflow-related data provenance to REDCap for posterity.  By incorporating this WDL workflow into your scientific workflows you can select, archive, and automagically retain the data provenance for files of interest that arise from your computational work.  This reduces the long term burden of annotation of datasets in S3.  
